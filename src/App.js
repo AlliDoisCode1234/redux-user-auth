@@ -1,5 +1,9 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from './Components/Home'
+import Login from "./Components/Login"
+import Header from './Components/Header'
 
 import { auth, provider } from './firebase'
 
@@ -35,16 +39,31 @@ function App() {
 
 
   return (
-    <div className="App">
-      {
-        userName ? (
-          
-          <button onClick={handleSignout} >Sign out</button>
-        ):(
-          <button onClick={handleSignin}>Sign in</button>
-        )
-      }
-    </div>
+
+    // BEM naming convention
+    <Router>
+      <div className="App">
+        {
+          userName ? (
+            
+            <button onClick={handleSignout} >Sign out</button>
+          ):(
+            <button onClick={handleSignin}>Sign in</button>
+          )
+        }
+        <Switch>
+          <Route path="/home">
+            <Home />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/">
+            <Header />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
